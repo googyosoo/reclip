@@ -6,8 +6,8 @@ const os = require('os');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 8899;
-const HOST = process.env.HOST || '0.0.0.0';
+const PORT = process.env.PORT || 8080;
+const HOST = '0.0.0.0'; // 컨테이너 환경에서는 0.0.0.0 고정 권장
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors());
