@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: reclip-pro
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8899
+      - key: HOST
+        value: 0.0.0.0

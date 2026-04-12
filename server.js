@@ -7,6 +7,7 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 8899;
+const HOST = process.env.HOST || '0.0.0.0';
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors());
@@ -15,8 +16,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ── Helper: resolve yt-dlp executable ────────────────────────────────────────
 function resolveYtDlp() {
-  // Check absolute paths (pip --user install on Windows)
+  // Check absolute paths: Linux/Docker first, then Windows
   const candidates = [
+    // Linux / Docker (installed via pip or apt)
+    '/usr/local/bin/yt-dlp',
+    '/usr/bin/yt-dlp',
+    path.join(os.homedir(), '.local', 'bin', 'yt-dlp'),
+    // Windows (pip --user install)
     path.join(os.homedir(), 'AppData', 'Roaming', 'Python', 'Python314', 'Scripts', 'yt-dlp.exe'),
     path.join(os.homedir(), 'AppData', 'Roaming', 'Python', 'Python313', 'Scripts', 'yt-dlp.exe'),
     path.join(os.homedir(), 'AppData', 'Roaming', 'Python', 'Python312', 'Scripts', 'yt-dlp.exe'),
@@ -34,9 +40,11 @@ function resolveYtDlp() {
       return { cmd: c, args: [] };
     }
   }
-  // Fallback: invoke via `python -m yt_dlp` (works when pip-installed)
-  console.log('[yt-dlp] Not found as standalone binary — using: python -m yt_dlp');
-  return { cmd: 'python', args: ['-m', 'yt_dlp'] };
+
+  // Fallback: python3 -m yt_dlp (Linux/Docker), then python -m yt_dlp (Windows)
+  const pyCmd = process.platform === 'win32' ? 'python' : 'python3';
+  console.log(`[yt-dlp] Not found as standalone binary — using: ${pyCmd} -m yt_dlp`);
+  return { cmd: pyCmd, args: ['-m', 'yt_dlp'] };
 }
 
 const YTDLP = resolveYtDlp();
@@ -214,7 +222,7 @@ app.get('/api/download', (req, res) => {
 });
 
 // ── Start server ──────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`\n🌊 Reclip Pro running at http://localhost:${PORT}`);
   if (YTDLP.args.length > 0) {
     console.log(`   yt-dlp: ${YTDLP.cmd} ${YTDLP.args.join(' ')}`);
