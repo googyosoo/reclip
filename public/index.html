@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Reclip Pro — YouTube, TikTok, Instagram 등 1000개 이상의 사이트에서 동영상과 오디오를 무료로 다운로드하세요. 글래스모피즘 디자인의 자체 호스팅 미디어 다운로더." />
-  <title>Reclip Pro — 무료 미디어 다운로더</title>
+  <meta name="description" content="Reclip Pro — 선생님을 위한 수업 자료용 로컬 미디어 도구. 본인이 권리를 가졌거나 이용 허락된 영상을 수업 목적으로 안전하게 내려받습니다." />
+  <title>Reclip Pro — 수업 자료 미디어 도구</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -36,15 +36,14 @@
             </linearGradient>
           </defs>
         </svg>
-        <span class="logo-text">Reclip <span class="logo-pro">Pro</span></span>
+        <span class="logo-text">Reclip <span class="logo-pro">Pro</span> <span class="badge-edu">수업용</span></span>
       </div>
       <nav class="header-nav" aria-label="지원 사이트">
         <ul class="site-badges">
           <li><span class="badge">YouTube</span></li>
-          <li><span class="badge">TikTok</span></li>
-          <li><span class="badge">Instagram</span></li>
-          <li><span class="badge">Twitter/X</span></li>
-          <li><span class="badge">+ 1000개 이상</span></li>
+          <li><span class="badge">EBS/공공영상</span></li>
+          <li><span class="badge">Vimeo</span></li>
+          <li><span class="badge">로컬 개인 PC 전용</span></li>
         </ul>
       </nav>
     </div>
@@ -53,14 +52,24 @@
   <!-- ── Main ───────────────────────────────────────────── -->
   <main id="main-content" class="main">
 
+    <!-- 💡 법적/수업 목적 저작권 안내 배너 -->
+    <aside class="notice-card" aria-label="수업 목적 저작권 이용 안내">
+      <div class="notice-icon" aria-hidden="true">⚖️</div>
+      <div class="notice-content">
+        <h2 class="notice-title">수업 목적 저작권 및 이용 안내</h2>
+        <p class="notice-text">
+          본 도구는 저작권법 제25조(학교교육 목적 등에의 이용)를 준수하며, <strong>본인이 권리를 가졌거나 교육용으로 이용 허락된 영상만 수업 목적 범위에서</strong> 저장하여 활용해야 합니다. 영리 목적의 활용이나 무단 재배포는 엄격히 금지됩니다.
+        </p>
+      </div>
+    </aside>
+
     <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-title">
       <h1 id="hero-title" class="hero-title">
-        어디서든 <span class="gradient-text">무료로</span> 다운로드
+        선생님을 위한 <span class="gradient-text">수업 자료</span> 미디어 도구
       </h1>
       <p class="hero-subtitle">
-        YouTube, TikTok, Instagram 등 1000개 이상의 사이트에서<br />
-        동영상(MP4)과 오디오(MP3)를 즉시 다운로드
+        영상(MP4)과 오디오(MP3)를 안전하게 내 PC에 저장하고 수업에 바로 활용하세요
       </p>
     </section>
 
@@ -70,9 +79,9 @@
         <div class="input-header">
           <label for="url-input" class="input-label">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            동영상 URL 입력
+            수업용 동영상 URL 입력
           </label>
-          <span class="input-hint">여러 URL은 줄바꿈, 쉼표, 또는 공백으로 구분</span>
+          <span class="input-hint">여러 URL은 줄바꿈 또는 공백으로 구분</span>
         </div>
 
         <div class="textarea-wrap">
@@ -91,6 +100,31 @@
           </button>
         </div>
         <p id="url-hint" class="sr-only">여러 URL을 동시에 입력할 수 있습니다. 줄바꿈, 쉼표, 공백으로 구분하세요.</p>
+
+        <!-- 저장 설정 패널 (저장 방식 & 폴더 선택) -->
+        <div class="save-settings-panel">
+          <div class="setting-row">
+            <span class="setting-label">저장 방식:</span>
+            <div class="save-mode-toggle" role="radiogroup" aria-label="저장 방식 선택">
+              <button type="button" id="mode-local-btn" class="mode-btn active" role="radio" aria-checked="true">
+                💻 내 PC 폴더 직접 저장 (진행률 표시)
+              </button>
+              <button type="button" id="mode-stream-btn" class="mode-btn" role="radio" aria-checked="false">
+                🌐 브라우저 다운로드
+              </button>
+            </div>
+          </div>
+
+          <div id="folder-setting-row" class="setting-row folder-row">
+            <label for="save-dir-input" class="setting-label">저장 위치:</label>
+            <div class="folder-input-wrap">
+              <input type="text" id="save-dir-input" class="folder-input" spellcheck="false" value="다운로드 폴더 로딩 중..." />
+              <button type="button" id="open-folder-btn" class="btn-sub" title="저장 폴더 탐색기 열기">
+                📂 폴더 열기
+              </button>
+            </div>
+          </div>
+        </div>
 
         <!-- Format Toggle -->
         <div class="format-toggle" role="group" aria-label="다운로드 형식 선택">
@@ -118,41 +152,48 @@
         <button id="fetch-btn" class="fetch-btn" aria-label="동영상 정보 불러오기">
           <span class="btn-text">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            정보 불러오기
+            정보 분석 및 목록 추가
           </span>
           <span class="btn-spinner" hidden aria-hidden="true">
             <svg class="spinner-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-            분석 중...
+            영상 분석 중...
           </span>
         </button>
       </div>
     </section>
 
-    <!-- Error Banner -->
+    <!-- Error Banner (원인 분석 카드 확장) -->
     <div id="error-banner" class="error-banner" role="alert" aria-live="assertive" hidden>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-      <span id="error-msg"></span>
-      <button class="error-close" onclick="closeError()" aria-label="오류 메시지 닫기">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <div class="error-header">
+        <svg class="error-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <strong id="error-title" class="error-title">오류 발생</strong>
+        <button class="error-close" onclick="closeError()" aria-label="오류 메시지 닫기">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="error-body">
+        <p id="error-desc" class="error-desc"></p>
+        <p id="error-solution" class="error-solution"></p>
+        <pre id="error-raw" class="error-raw" hidden></pre>
+      </div>
     </div>
 
     <!-- Results Section -->
     <section
       id="results-section"
       class="results-section"
-      aria-label="검색 결과"
+      aria-label="분석된 수업 영상 목록"
       aria-live="polite"
       hidden
     >
       <div class="results-header">
         <h2 class="results-title">
-          <span id="result-count">0</span>개의 동영상을 찾았습니다
+          수업 자료 <span id="result-count">0</span>개 준비됨
         </h2>
         <div class="results-actions">
-          <button id="download-all-btn" class="download-all-btn" aria-label="모두 다운로드">
+          <button id="download-all-btn" class="download-all-btn" aria-label="모두 저장">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            모두 다운로드
+            전체 저장
           </button>
           <button id="clear-results-btn" class="clear-results-btn" aria-label="결과 초기화">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>
@@ -165,46 +206,16 @@
       <div id="results-grid" class="results-grid" role="list"></div>
     </section>
 
-    <!-- Supported Sites -->
+    <!-- Supported Sites & Edu Info -->
     <section class="sites-section" aria-label="지원 사이트 목록">
-      <h2 class="sites-title">지원 사이트</h2>
+      <h2 class="sites-title">수업 영상 출처 지원</h2>
       <div class="sites-grid">
-        <div class="site-chip">
-          <span>🎬</span> YouTube
-        </div>
-        <div class="site-chip">
-          <span>🎵</span> TikTok
-        </div>
-        <div class="site-chip">
-          <span>📸</span> Instagram
-        </div>
-        <div class="site-chip">
-          <span>🐦</span> Twitter/X
-        </div>
-        <div class="site-chip">
-          <span>📘</span> Facebook
-        </div>
-        <div class="site-chip">
-          <span>🎮</span> Twitch
-        </div>
-        <div class="site-chip">
-          <span>🎞️</span> Vimeo
-        </div>
-        <div class="site-chip">
-          <span>🔴</span> Reddit
-        </div>
-        <div class="site-chip">
-          <span>🎧</span> SoundCloud
-        </div>
-        <div class="site-chip">
-          <span>🎬</span> Dailymotion
-        </div>
-        <div class="site-chip">
-          <span>📌</span> Pinterest
-        </div>
-        <div class="site-chip">
-          <span>🔗</span> + 990개 이상
-        </div>
+        <div class="site-chip"><span>🎬</span> YouTube</div>
+        <div class="site-chip"><span>🎞️</span> Vimeo</div>
+        <div class="site-chip"><span>🏫</span> EBS/교육영상</div>
+        <div class="site-chip"><span>🎵</span> TikTok</div>
+        <div class="site-chip"><span>🎧</span> SoundCloud</div>
+        <div class="site-chip"><span>📌</span> + 1000개 이상</div>
       </div>
     </section>
 
@@ -213,10 +224,8 @@
   <!-- ── Footer ─────────────────────────────────────────── -->
   <footer class="site-footer" role="contentinfo">
     <p class="footer-text">
-      Powered by <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener noreferrer" class="footer-link">yt-dlp</a>
-      &amp;
-      <a href="https://ffmpeg.org/" target="_blank" rel="noopener noreferrer" class="footer-link">FFmpeg</a>
-      · 개인 사용 목적으로만 이용하세요
+      Reclip Pro — 선생님을 위한 개인 수업용 도구 · Powered by yt-dlp &amp; FFmpeg<br />
+      <span class="footer-subtext">본 시스템은 외부 서버로 영상을 전송하지 않고 사용자 PC에서만 동작합니다.</span>
     </p>
   </footer>
 
@@ -235,13 +244,30 @@
         <div class="card-format-wrap">
           <label class="sr-only" aria-label="화질 선택"></label>
           <select class="quality-select" aria-label="화질/품질 선택">
-            <option value="">최고 화질 (자동)</option>
+            <option value="">최고 화질 (자동 병합)</option>
           </select>
         </div>
-        <button class="download-btn" aria-label="다운로드">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          다운로드
-        </button>
+
+        <!-- 실시간 진행률 바 (로컬 저장 시 동작) -->
+        <div class="progress-wrap" hidden>
+          <div class="progress-header">
+            <span class="progress-status">준비 중...</span>
+            <span class="progress-meta">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="card-btn-group">
+          <button class="download-btn" aria-label="저장하기">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            저장하기
+          </button>
+          <button class="open-file-btn" title="저장된 파일/폴더 열기" hidden>
+            📂 열기
+          </button>
+        </div>
       </div>
     </article>
   </template>
